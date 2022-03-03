@@ -1,0 +1,36 @@
+version: '3'
+services:
+  db:
+    image: mariadb:10.6.5
+    volumes:
+      - db-data:/var/lib/mysql
+    environment:
+      MARIADB_ROOT_PASSWORD: password
+      TZ: Asia/Tokyo
+    ports:
+      - 3307:3306
+
+  app:
+    build:
+      context: ./
+      dockerfile: ./docker/rails/Dockerfile
+    environment:
+      TZ: Asia/Tokyo
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - ./:/src
+      - node_modules:/src/node_modules
+      - bundle_data:/usr/local/bundle
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    stdin_open: true
+    tty: true
+    # profiles:
+    #   - extra
+
+volumes:
+  bundle_data:
+  db-data:
+  node_modules:
