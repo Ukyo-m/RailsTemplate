@@ -22,8 +22,8 @@ $ docker-compose run app rails new . --force --no-deps --api --database=mysql --
 $ docker-compose build --no-cache
 ```
 
-### DBの設定
+## DBの作成
 
 ```shell
-$ 
+$ rake db:create
 ```

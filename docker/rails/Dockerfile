@@ -22,6 +22,12 @@ COPY ./Gemfile.lock /src/Gemfile.lock
 RUN bundle install
 
 #####################################
+# Restore node packages
+#####################################
+RUN yarn install --check-files
+RUN bundle exec rails webpacker:compile
+
+#####################################
 # entrypoint
 #####################################
 COPY ./docker/rails/entrypoint.sh /usr/bin/
