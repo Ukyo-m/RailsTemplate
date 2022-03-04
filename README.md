@@ -27,3 +27,9 @@ $ docker-compose build --no-cache
 ```shell
 $ rake db:create
 ```
+
+## Webpackerコンパイル
+```shell
+$ rails webpacker:install
+$ rails webpacker:compile
+```
